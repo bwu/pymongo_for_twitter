@@ -1,0 +1,158 @@
+Pymongo Twitter Class
+=====================
+
+Using sixohsix's twitter package for python, and the pymongo package for
+python and MongoDB, these classes work together to scrape the Twitter 
+REST API and store the data in a Mongo database. The class was designed for
+to be low maintenance, easy to monitor and regularly run so that one can
+accurately monitor the performance of his or her Twitter handle over time.
+
+Data is collected and stored in five different collections.
+	- twitter_channel
+	- twitter_content
+	- twitter_replies
+	- twitter_mentions
+	- twitter_hashtags
+
+
+
+
+
+
+Collected Data Points
+=====================
+
+twitter_channel - stores day by day channel data
+
+Example:
+
+	{
+	   "_id": ObjectId("ABCD"),
+	   "total_tweets": 5104,
+	   "friends_count": 113,
+	   "followers_count": 3644,
+	   "handle_name": "justinbeiber",
+	   "date": "2012-11-28",
+	   "total_lists": 89 
+	}
+
+-----------------------------------------------
+
+twitter_content - stores tweets made by handle shared to all followers,
+freezing data after 2 and 7 days.
+
+Example:
+
+	{
+	   "_id": ObjectId("ABCD"),
+	   "handle_name": "justinbeiber",
+	   "date": "2012-11-20 11: 00: 00",
+	   "lifetime": {
+	     "reply_count": 1,
+	     "retweet_count": 11,
+	     "bitly_clicks": 119 
+	  },
+	   "status_id": "1234",
+	   "text": "Check out this pic from my latest concert: http: \/\/t.co\/dcjkeow",
+	   "tweet_link": "http: \/\/twitter.com\/#!\/12345\/status\/1234",
+	   "url": "bit.ly\/JKDixkl",
+	   "2_day": {
+	     "reply_count": 1,
+	     "retweet_count": 9,
+	     "bitly_clicks": 111 
+	  },
+	   "7_day": {
+	     "reply_count": 1,
+	     "retweet_count": 10,
+	     "bitly_clicks": 117 
+	  } 
+	}
+	
+-----------------------------------------------
+
+twitter_replies - stores tweets made by handle beginning with an @mention,
+freezing data after 2 and 7 days.
+
+Example:
+
+	{
+	   "_id": ObjectId("ABCD"),
+	   "handle_name": "justinbeiber",
+	   "date": "2012-11-20 11: 00: 00",
+	   "lifetime": {
+	     "reply_count": 1,
+	     "retweet_count": 11,
+	     "bitly_clicks": 119 
+	  },
+	   "status_id": "1234",
+	   "text": "@JustinsFans Check out this pic from my latest concert: http: \/\/t.co\/dcjkeow",
+	   "tweet_link": "http: \/\/twitter.com\/#!\/12345\/status\/1234",
+	   "url": "bit.ly\/JKDixkl",
+	   "2_day": {
+	     "reply_count": 1,
+	     "retweet_count": 9,
+	     "bitly_clicks": 111 
+	  },
+	   "7_day": {
+	     "reply_count": 1,
+	     "retweet_count": 10,
+	     "bitly_clicks": 117 
+	  } 
+	}
+	
+-----------------------------------------------
+
+twitter_mentions - stores tweets mentioning a specific handle, storing specific
+information about the user that tweeted.
+
+Example:
+
+	{
+	   "_id": ObjectId("ABCD"),
+	   "tweet_link": "http: \/\/twitter.com\/#!\/BrianSmith\/status\/1234",
+	   "url": null,
+	   "handle_name": "justinbeiber",
+	   "user": {
+	     "statuses_count": 104,
+	     "name": "Brian Smith",
+	     "friends_count": 26,
+	     "followers_count": 839,
+	     "location": "",
+	     "screen_name": "BrianSmith" 
+	  },
+	   "status_id": "1234",
+	   "date": "2012-11-28 18: 53: 02",
+	   "text": "I just had a great time watching @justinbeiber!",
+	   "retweet_count": 6,
+	   "in_reply_to_status": null 
+	}
+	
+-----------------------------------------------
+
+twitter_hashtags - stores tweets containing a specific search term, storing specific
+information about the user that tweeted.
+
+Example:
+
+	{
+	   "_id": ObjectId("ABCD"),
+	   "tweet_link": "http: \/\/twitter.com\/#!\/JoeShmo\/status\/1234",
+	   "in_reply_to_screen_name": null,
+	   "handle_name": "justinbeiber",
+	   "query": "%23baconbits",
+	   "user": {
+	     "statuses_count": 9065,
+	     "name": "Joseph Shmo",
+	     "friends_count": 296,
+	     "followers_count": 301,
+	     "location": "'Jersey",
+	     "screen_name": "JoeShmo" 
+	  },
+	   "status_id": "1234",
+	   "date": "2012-11-28 18: 33: 58",
+	   "text": "I loveeeee my #baconbits! bit.ly\/Xv4fd",
+	   "url": "bit.ly\/Xv4fd",
+	   "retweet_count": 36 
+	}
+	
+-----------------------------------------------
