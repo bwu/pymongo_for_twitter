@@ -6,6 +6,8 @@ python and MongoDB, these classes work together to scrape the Twitter
 REST API and store the data in a Mongo database. The class was designed for
 to be low maintenance, easy to monitor and regularly run so that one can
 accurately monitor the performance of his or her Twitter handle over time.
+General guidelines to use are shown below. I may be missing points. If you need
+help using this, please reach out to me at @brain_deer.
 
 Data is collected and stored in five different collections.
 	- twitter_channel
@@ -15,6 +17,39 @@ Data is collected and stored in five different collections.
 	- twitter_hashtags
 
 
+
+
+
+General guidelines to use:
+==========================
+
+Requisites: 
+	- Installed twitter, pymongo, bitly_api and itertools packages.
+	- A set up mongo database
+
+1. Create a twitter application and authorize given handles to acquire
+oauth token and oauth token secret.
+
+2. Create a "handles" collection with documents of the following format
+
+	{
+	   "_id": ObjectId("ABCD"),
+	   "name": "justinbeiber",
+	   "twitter": "JUSTINS_TWITTERID",
+	   "twitter_hashtags": {
+	     "0": "#followfriday",
+	     "1": "#traveltuesday" 
+	  },
+	   "twitter_oauth_token": "JUSTINS_OAUTH_TOKEN",
+	   "twitter_oauth_token_secret": "JUSTINS_TWITTER_OAUTH_TOKEN_SECRET" 
+	}
+
+3. Insert CONSUMER_KEY, CONSUMER_SECRET, and DATABASE_NAME in twitter_scrape.py
+
+4. Insert BITLY_USERNAME, BITLY_APIKEY in insights.py
+
+5. Run twitter_scrape.py from your python interpreter
+	
 
 
 
@@ -154,5 +189,5 @@ Example:
 	   "url": "bit.ly\/Xv4fd",
 	   "retweet_count": 36 
 	}
-	
------------------------------------------------
+
+-----------------------------------------------	

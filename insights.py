@@ -1,7 +1,6 @@
 #!/path/to/python
 
 import twitter
-import facebook
 import datetime
 import bitly_api
 from datetime import date, timedelta, datetime, tzinfo
